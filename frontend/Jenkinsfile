@@ -43,7 +43,7 @@ pipeline {
         }
         stage('Push Image') {
             steps {
-                bat 'docker push uthpala99/nodeapp-cuban:%BUILD_NUMBER%'
+                bat 'docker push uthpala99/ibills-pjct:%BUILD_NUMBER%'
             }
         }
     }
