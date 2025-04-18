@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "node index.js",
-    
+   "start": "react-scripts start",
+  "build": "react-scripts build",
+  "test": "react-scripts test",
     "lint": "next lint"
   },
   "dependencies": {
