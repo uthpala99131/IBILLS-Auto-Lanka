@@ -5,7 +5,7 @@ pipeline {
         stage('SCM Checkout') {
             steps {
                 retry(3) {
-                    git branch: 'main', url: 'https://github.com/uthpala99131/IBILLS-Auto-Lanka.git'
+                    git branch: 'main', url: 'https://github.com/uthpala99131/IBILLS-Auto-Lanka/tree/main/frontend'
                 }
             }
         }
