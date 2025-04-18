@@ -8,6 +8,10 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "TypeScript":{
+    "build": "tsc"
+  },
+  
   "dependencies": {
     "glob": "^11.0.1",
     "next": "13.4.12",
