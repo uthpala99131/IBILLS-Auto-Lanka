@@ -1,17 +1,23 @@
-# Use the latest version of the Node.js image as the base image
-FROM node:latest  
+# Use the latest Node.js image as the base
+FROM node:18-bullseye  
 
-# Set the working directory inside the container to /usr/src/app
+# Set the working directory inside the container
 WORKDIR /usr/src/app  
 
-# Copy the contents of the local "nodeapp" directory to the root directory of the container
-COPY . .  
+# Copy package files first to install dependencies
+COPY package.json package-lock.json* ./  
 
-# Run the npm install command to install the dependencies specified in package.json
+# Install dependencies
 RUN npm install  
 
-# Expose port 3000 to allow incoming connections to the container
+# Copy the rest of the app files
+COPY . .  
+
+# Build the Next.js application
+RUN npm run build  
+
+# Expose port 3000 (default for Next.js)
 EXPOSE 3000  
 
-# Start the application by running the "npm start" command
-CMD [ "npm", "start" ]  
+# Start the Next.js production server
+CMD [ "npm", "start" ]
