@@ -1,22 +1,17 @@
 {
-  "name": "frontend",
-  "version": "0.1.0",
+  "name": "node-app",
+  "description": "Nodeapp for CICD test",
+  "version": "0.0.1",
   "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
   "dependencies": {
-    "next": "^15.2.4",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "express": "4.17.1"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.3",
-    "autoprefixer": "^10.4.21",
-    "postcss": "^8.5.3",
-    "tailwindcss": "^4.1.3"
+    "mocha": "9.1.1",
+    "supertest": "6.1.6"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "mocha ./test/test.js"
   }
 }
