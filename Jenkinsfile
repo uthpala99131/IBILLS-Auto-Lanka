@@ -1,52 +1,34 @@
 pipeline {
     agent any 
     
-    environment {
-        IMAGE_NAME = "uthpala99/nextjs-ibills-img:${BUILD_NUMBER}"
-    }
-
     stages { 
-        stage('Checkout') {
+        stage('SCM Checkout') {
             steps {
                 retry(3) {
-                    git branch: 'main', url: 'https://github.com/uthpala99131/IBILLS-Auto-Lanka'
+                    git branch: 'main', url: 'https://github.com/uthpala99131/IBILLS-Auto-Lanka.git'
                 }
             }
         }
-
-        stage('Install Dependencies') {
-            steps {
-                bat 'npm install'
-            }
-        }
-
-        stage('Build Next.js App') {
-            steps {
-                bat 'npm run build'
-            }
-        }
-
         stage('Build Docker Image') {
-            steps {
-                bat "docker build -t ${IMAGE_NAME} ."
+            steps {  
+                bat 'docker build -t uthpala99/nextapp-cuban:%BUILD_NUMBER% .'
             }
         }
-
         stage('Login to Docker Hub') {
             steps {
-                withCredentials([string(credentialsId: 'ibills-pass', variable: 'ibills_pass')]) {
-                    bat "docker login -u uthpala99 -p %ibills_pass%"
+                withCredentials([string(credentialsId: 'testing-dockPass', variable: 'DockerPassword')]){
+                    script {
+                        bat "docker login -u uthpala99 -p %DockerPassword%"
+                    }
                 }
             }
         }
-
-        stage('Push Docker Image') {
+        stage('Push Image') {
             steps {
-                bat "docker push ${IMAGE_NAME}"
+                bat 'docker push uthpala99/nextapp-cuban:%BUILD_NUMBER%'
             }
         }
     }
-
     post {
         always {
             bat 'docker logout'
