@@ -12,7 +12,7 @@ const navLinks = [
   },
   {
     title: "ABOUT",
-    path: "/about.jsx",
+    path: "/about",
   },
   {
     title: "SERVICES",

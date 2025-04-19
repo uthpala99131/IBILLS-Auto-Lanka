@@ -4,7 +4,7 @@ export default function About() {
       <section className="py-16 px-6 max-w-6xl mx-auto">
         <h2 className="text-4xl font-bold mb-6 text-center text-red-700">About IBILLS</h2>
         <p className="text-lg text-gray-700 leading-8">
-          Cripar is a trusted name in car repair services. We combine technology and experience
+          IBILLS is a trusted name in car repair services. We combine technology and experience
           to deliver the best automotive care in the industry. Our trained professionals offer
           precision diagnostics, expert maintenance, and transparent pricing.
         </p>
