@@ -4,6 +4,7 @@ import '../app/globals.css';
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ServiceCard from "../components/ServiceCard";
+import Packages from "../components/Packages";
 
 const services = [
   { title: "Engine Diagnostics", desc: "Advanced computer diagnostics to find issues fast." },
@@ -12,6 +13,7 @@ const services = [
   { title: "Battery Replacement", desc: "Quick and reliable battery change for any model." },
   { title: "AC Repair", desc: "Stay cool with our efficient air conditioning service." },
   { title: "Tire Services", desc: "Rotation, balancing, and new tire installation." },
+  { title: "Recovery", desc: "Recovery service." },
 ];
 
 export default function Services() {
@@ -19,7 +21,7 @@ export default function Services() {
     <div className="flex flex-col min-h-screen text-white bg-black">
       <Navbar />
 
-      <main className="flex-grow w-full px-4 pb-20 mx-auto pt-28 sm:px-6 lg:px-8 max-w-7xl">
+      <main className="flex-grow w-full px-4 mx-auto pb-15 pt-28 sm:px-6 lg:px-8 max-w-7xl">
         <h2 className="mb-12 text-4xl font-extrabold text-center text-red-600">
           Our Services
         </h2>
@@ -34,7 +36,8 @@ export default function Services() {
           ))}
         </div>
       </main>
-
+          
+          <Packages />
       <Footer />
     </div>
   );
