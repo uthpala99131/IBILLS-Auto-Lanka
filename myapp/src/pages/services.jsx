@@ -1,4 +1,7 @@
 // app/services.jsx
+import "../app/globals.css";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import ServiceCard from "../components/ServiceCard";
 
 const services = [
@@ -12,13 +15,22 @@ const services = [
 
 export default function Services() {
   return (
-    <section className="py-16 px-6 max-w-7xl mx-auto">
-      <h2 className="text-4xl font-bold text-center text-red-700 mb-10">Our Services</h2>
-      <div className="grid md:grid-cols-3 gap-8">
-        {services.map((service, index) => (
-          <ServiceCard key={index} title={service.title} desc={service.desc} />
-        ))}
-      </div>
-    </section>
+    <div className="flex flex-col min-h-screen">
+      <Navbar />
+
+      <main className="flex-grow py-30 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+        <h2 className="text-4xl font-bold text-center text-red-700 mb-12">
+          Our Services
+        </h2>
+
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {services.map((service, index) => (
+            <ServiceCard key={index} title={service.title} desc={service.desc} />
+          ))}
+        </div>
+      </main>
+
+      <Footer />
+    </div>
   );
 }

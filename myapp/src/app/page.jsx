@@ -1,18 +1,18 @@
 // app/page.jsx
 import HeroSection from "../components/HeroSection";
 import VehicleBrands from "../components/VehicleBrands";
-import About from "../app/about";
-import Services from "../app/services";
-import Contacts from "../app/contact";
+import AboutSection from "../components/AboutSection";
+import ServiceCard from "../components/ServiceCard";
+import ContactForm from "../components/ContactForm";
 
 export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <About />
-      <Services />
+      <AboutSection />
+      <ServiceCard />
       <VehicleBrands />
-      <Contacts />
+      <ContactForm />
     </>
   );
 }

@@ -1,7 +1,8 @@
 'use client';
 import { useState } from "react";
 import '../app/globals.css';
-
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -26,7 +27,8 @@ export default function Contact() {
   };
 
   return (
-
+    <div className="flex flex-col min-h-screen">
+      <Navbar />
 
       <main className="flex-grow py-30 px-4 sm:px-6 lg:px-8 max-w-2xl mx-auto w-full">
         <h2 className="text-4xl font-bold text-center text-red-700 mb-10">Contact Us</h2>
@@ -68,6 +70,7 @@ export default function Contact() {
         </form>
       </main>
 
-   
+      <Footer />
+    </div>
   );
 }
