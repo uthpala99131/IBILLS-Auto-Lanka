@@ -1,13 +1,11 @@
 // components/ServiceCard.jsx
-"use client";
-
-const ServiceCard = ({ title, desc }) => {
+export default function ServiceCard({ title, desc }) {
   return (
-    <div className="p-6 transition bg-gray-100 rounded-lg shadow-md hover:bg-red-50">
-      <h3 className="mb-2 text-xl font-semibold text-red-700">{title}</h3>
-      <p className="text-gray-700">{desc}</p>
+    <div className="text-white transition-all duration-300 border border-red-600 rounded-lg shadow-lg bg-black/80 hover:scale-105 hover:shadow-xl">
+      <div className="p-6">
+        <h3 className="mb-4 text-xl font-semibold text-red-600">{title}</h3>
+        <p className="text-sm text-gray-300">{desc}</p>
+      </div>
     </div>
   );
-};
-
-export default ServiceCard;
+}

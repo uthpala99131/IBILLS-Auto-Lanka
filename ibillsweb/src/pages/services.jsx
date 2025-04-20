@@ -1,4 +1,3 @@
-// app/services/page.jsx
 "use client";
 
 import '../app/globals.css';
@@ -17,17 +16,21 @@ const services = [
 
 export default function Services() {
   return (
-    <div className="flex flex-col min-h-screen text-black bg-white">
+    <div className="flex flex-col min-h-screen text-white bg-black">
       <Navbar />
 
       <main className="flex-grow w-full px-4 pb-20 mx-auto pt-28 sm:px-6 lg:px-8 max-w-7xl">
-        <h2 className="mb-12 text-4xl font-bold text-center text-red-700">
+        <h2 className="mb-12 text-4xl font-extrabold text-center text-red-600">
           Our Services
         </h2>
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service, index) => (
-            <ServiceCard key={index} title={service.title} desc={service.desc} />
+            <ServiceCard
+              key={index}
+              title={service.title}
+              desc={service.desc}
+            />
           ))}
         </div>
       </main>
