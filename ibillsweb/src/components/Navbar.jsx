@@ -48,13 +48,13 @@ const Navbar = () => {
 
           {/* Sign In / Sign Up Buttons */}
           <Link
-            href="/signin"
+            href="/login"
             className="text-sm font-medium text-white hover:text-red-500"
           >
             Sign In
           </Link>
           <Link
-            href="/signup"
+            href="/register"
             className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded hover:bg-red-700"
           >
             Sign Up
@@ -65,11 +65,11 @@ const Navbar = () => {
       {navbarOpen && (
         <MenuOverlay links={navLinks}>
           <div className="flex flex-col mt-4 space-y-3">
-            <Link href="/signin" className="text-white hover:text-red-500">
+            <Link href="/login" className="text-white hover:text-red-500">
               Sign In
             </Link>
             <Link
-              href="/signup"
+              href="/register"
               className="px-4 py-2 text-center text-white bg-red-600 rounded hover:bg-red-700"
             >
               Sign Up
