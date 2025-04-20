@@ -1,15 +1,17 @@
-import React from "react";
-import NavLink from "../components/NavLink";
+import Link from "next/link";
 
-const MenuOverlay = ({ links }) => {
+const MenuOverlay = ({ links, children }) => {
   return (
-    <ul className="flex flex-col py-4 items-center">
+    <div className="px-4 pt-4 pb-6 space-y-4 text-white bg-black md:hidden">
       {links.map((link, index) => (
-        <li key={index}>
-          <NavLink href={link.path} title={link.title} />
-        </li>
+        <Link key={index} href={link.path} className="block hover:text-red-500">
+          {link.title}
+        </Link>
       ))}
-    </ul>
+
+      {/* Inject additional items like auth buttons */}
+      {children}
+    </div>
   );
 };
 

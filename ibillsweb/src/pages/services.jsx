@@ -1,5 +1,7 @@
-// app/services.jsx
-import "../app/globals.css";
+// app/services/page.jsx
+"use client";
+
+import '../app/globals.css';
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ServiceCard from "../components/ServiceCard";
@@ -15,11 +17,11 @@ const services = [
 
 export default function Services() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen text-black bg-white">
       <Navbar />
 
-      <main className="flex-grow py-30 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-        <h2 className="text-4xl font-bold text-center text-red-700 mb-12">
+      <main className="flex-grow w-full px-4 pb-20 mx-auto pt-28 sm:px-6 lg:px-8 max-w-7xl">
+        <h2 className="mb-12 text-4xl font-bold text-center text-red-700">
           Our Services
         </h2>
 
