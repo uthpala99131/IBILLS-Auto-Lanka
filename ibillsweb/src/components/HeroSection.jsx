@@ -1,5 +1,6 @@
 "use client";
-
+import Link from 'next/link';
+import React from 'react';
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -9,7 +10,7 @@ export default function HeroSection() {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/car.jpg" // Replace with your image path or URL
+          src="/images/car.jpg"
           alt="Vehicle Hero"
           fill
           className="object-cover opacity-30"
@@ -29,13 +30,16 @@ export default function HeroSection() {
         <p className="mb-8 text-lg text-gray-200 md:text-xl">
           We bring professional car repair solutions to your doorstep.
         </p>
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="px-8 py-3 text-white transition bg-red-600 rounded-full shadow-lg hover:bg-red-700"
-        >
-          Book Now
-        </motion.button>
+
+        <Link href="/jobcard" passHref>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-8 py-3 text-white transition bg-red-600 rounded-full shadow-lg hover:bg-red-700"
+          >
+            Book Now
+          </motion.button>
+        </Link>
       </motion.div>
     </section>
   );
