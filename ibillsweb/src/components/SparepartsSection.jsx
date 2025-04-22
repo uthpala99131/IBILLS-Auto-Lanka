@@ -27,7 +27,7 @@ export default function SpareParts() {
         </div>
 
         <Link
-          href="/spare-parts"
+          href="/parts"
           className="inline-block px-8 py-3 font-semibold text-white transition duration-300 ease-in-out bg-red-600 rounded-full shadow-md hover:bg-red-700"
         >
           Explore Spare Parts
