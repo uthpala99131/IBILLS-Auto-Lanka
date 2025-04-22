@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
 
+.input {
+  @apply w-full p-2 text-black bg-white border border-gray-300 rounded-xl;
+}
 
 :root {
   --foreground-rgb: 0, 0, 0;
