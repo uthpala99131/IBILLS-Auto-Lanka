@@ -16,7 +16,8 @@ const Navbar = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 w-full bg-black shadow-md bg-opacity-90">
+    <nav className="fixed top-0 left-0 right-0 z-50 w-full bg-black border-b border-gray-600 shadow-md bg-opacity-90">
+
       <div className="container flex flex-wrap items-center justify-between px-4 py-3 mx-auto">
         <Link href="/" className="text-2xl font-bold">
           <span className="text-white">IBILLS</span>{" "}
