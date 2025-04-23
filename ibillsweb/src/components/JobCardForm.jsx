@@ -1,60 +1,93 @@
-import { useState } from 'react';
+// components/JobCardForm.jsx
+import { useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/router";
 
-export default function JobCardForm() {
-  const [formData, setFormData] = useState({});
-  const [images, setImages] = useState([]);
+const JobCardForm = () => {
+  const [jobCardData, setJobCardData] = useState({
+    customerName: "",
+    vehicleModel: "",
+    serviceType: "",
+    date: "",
+    timeSlot: "",
+  });
 
-  const handleChange = (e) => {
+  const router = useRouter();
+
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setJobCardData({
+      ...jobCardData,
+      [name]: value,
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch('/api/job-card', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    });
-    const result = await res.json();
-    alert('Job Card Submitted!');
+    try {
+      const response = await axios.post("/api/job-cards", jobCardData);
+      if (response.status === 200) {
+        router.push("/dashboard");
+      }
+    } catch (error) {
+      console.error("Error creating job card:", error);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-6 md:grid-cols-2">
-      <div className="space-y-4">
-        <input name="customerName" placeholder="Customer Name" onChange={handleChange} className="input" />
-        <input name="contact" placeholder="Contact Number / Email" onChange={handleChange} className="input" />
-        <input name="vehicleRegNo" placeholder="Vehicle Reg. No" onChange={handleChange} className="input" />
-        <input name="vehicleModel" placeholder="Make & Model" onChange={handleChange} className="input" />
-        <input name="chassisNo" placeholder="Chassis Number" onChange={handleChange} className="input" />
-        <input name="engineNo" placeholder="Engine Number" onChange={handleChange} className="input" />
-        <input name="mileage" placeholder="Mileage (KM)" onChange={handleChange} className="input" />
-        <input name="fuelLevel" placeholder="Fuel Level" onChange={handleChange} className="input" />
-        <input name="dropoffTime" type="datetime-local" onChange={handleChange} className="input" />
-      </div>
-
-      <div className="space-y-4">
-        <select name="serviceType" onChange={handleChange} className="input">
-          <option>Type of Service</option>
-          <option>General Service</option>
-          <option>Repair</option>
-          <option>Accident</option>
-          <option>Custom Job</option>
+    <div className="container p-4 mx-auto bg-white rounded-lg shadow-lg">
+      <h2 className="mb-4 text-2xl font-bold text-center">Create Job Card</h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          type="text"
+          name="customerName"
+          value={jobCardData.customerName}
+          onChange={handleInputChange}
+          placeholder="Customer Name"
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+        <input
+          type="text"
+          name="vehicleModel"
+          value={jobCardData.vehicleModel}
+          onChange={handleInputChange}
+          placeholder="Vehicle Model"
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+        <select
+          name="serviceType"
+          value={jobCardData.serviceType}
+          onChange={handleInputChange}
+          className="w-full p-2 border border-gray-300 rounded"
+        >
+          <option value="">Select Service Type</option>
+          <option value="general">General Service</option>
+          <option value="repair">Repair</option>
+          <option value="accident">Accident</option>
         </select>
-        <textarea name="issuesReported" placeholder="Customer Complaints" onChange={handleChange} className="input" />
-        <textarea name="additionalRequests" placeholder="Additional Requests" onChange={handleChange} className="input" />
-        <textarea name="servicesToPerform" placeholder="List of Services" onChange={handleChange} className="input" />
-        <textarea name="spareParts" placeholder="Spare Parts Used (name, qty, cost)" onChange={handleChange} className="input" />
-        <input name="laborCharges" placeholder="Labor Charges" onChange={handleChange} className="input" />
-        <input name="estimatedCost" placeholder="Estimated Cost" onChange={handleChange} className="input" />
-        <input name="technician" placeholder="Technician Assigned" onChange={handleChange} className="input" />
-        <input name="jobStatus" placeholder="Job Status (Pending/In Progress/etc)" onChange={handleChange} className="input" />
-      </div>
-
-      <button type="submit" className="p-2 text-white bg-red-600 hover:bg-red-700 rounded-xl col-span-full">
-        Submit Job Card
-      </button>
-    </form>
+        <input
+          type="date"
+          name="date"
+          value={jobCardData.date}
+          onChange={handleInputChange}
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+        <input
+          type="time"
+          name="timeSlot"
+          value={jobCardData.timeSlot}
+          onChange={handleInputChange}
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+        <button
+          type="submit"
+          className="w-full p-3 text-white rounded-lg bg-primary"
+        >
+          Create Job Card
+        </button>
+      </form>
+    </div>
   );
-}
+};
+
+export default JobCardForm;
