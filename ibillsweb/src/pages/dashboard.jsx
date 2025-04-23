@@ -1,36 +1,20 @@
-// pages/dashboard.jsx
-import { useEffect, useState } from "react";
-import axios from "axios";
+import React from 'react';
+import { BookingForm } from '../components/BookingForm';
+import { JobCard } from '../components/jobcard/JobCard';
+import { ProgressTracker } from '../components/jobcard/ProgressTracker';
+import { InvoiceGenerator } from '../components/jobcard/InvoiceGenerator';
+import { ReviewSection } from '../components/jobcard/ReviewSection';
+import { ScheduleDisplay } from '../components/jobcard/ScheduleDisplay';
 
-const Dashboard = () => {
-  const [jobCards, setJobCards] = useState([]);
-
-  useEffect(() => {
-    const fetchJobCards = async () => {
-      try {
-        const response = await axios.get("/api/job-cards");
-        setJobCards(response.data);
-      } catch (error) {
-        console.error("Error fetching job cards:", error);
-      }
-    };
-    fetchJobCards();
-  }, []);
-
+export default function CustomerDashboard() {
   return (
-    <div className="container p-4 mx-auto">
-      <h2 className="mb-4 text-2xl font-bold text-center">Job Cards</h2>
-      <div className="space-y-4">
-        {jobCards.map((jobCard) => (
-          <div key={jobCard._id} className="p-4 bg-white rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold">{jobCard.customerName}</h3>
-            <p>Service Type: {jobCard.serviceType}</p>
-            <p>Status: {jobCard.status}</p>
-          </div>
-        ))}
-      </div>
+    <div className="grid min-h-screen gap-6 p-6 bg-black">
+      <BookingForm />
+      <JobCard />
+      <ProgressTracker />
+      <InvoiceGenerator />
+      <ReviewSection />
+      <ScheduleDisplay />
     </div>
   );
-};
-
-export default Dashboard;
+}

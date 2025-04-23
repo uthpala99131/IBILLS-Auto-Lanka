@@ -1,27 +1,21 @@
-// server/routes/jobCardRoutes.js
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const JobCard = require("../models/JobCardModel");
+const Job = require('../models/Job');
 
-// Create a new job card
-router.post("/", async (req, res) => {
-  try {
-    const jobCard = new JobCard(req.body);
-    await jobCard.save();
-    res.status(200).json(jobCard);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+router.post('/', async (req, res) => {
+  const job = new Job(req.body);
+  await job.save();
+  res.send(job);
 });
 
-// Get all job cards
-router.get("/", async (req, res) => {
-  try {
-    const jobCards = await JobCard.find();
-    res.status(200).json(jobCards);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+router.get('/', async (req, res) => {
+  const jobs = await Job.find();
+  res.send(jobs);
+});
+
+router.get('/:id', async (req, res) => {
+  const job = await Job.findById(req.params.id);
+  res.send(job);
 });
 
 module.exports = router;

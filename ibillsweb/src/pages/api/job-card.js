@@ -1,4 +1,4 @@
-import dbConnect from '../../lib/dbConnect';
+
 import JobCard from '../../models/JobCard';
 
 export default async function handler(req, res) {
