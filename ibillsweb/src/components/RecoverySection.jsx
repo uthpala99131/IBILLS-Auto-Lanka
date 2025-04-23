@@ -13,8 +13,7 @@ export default function Recovery() {
         <div className="space-y-6">
           <h3 className="text-3xl font-semibold text-white">Stranded? We’ve got your back!</h3>
           <p className="text-lg leading-8 text-gray-300">
-            Our reliable recovery service ensures your broken vehicle is safely transported and repaired.
-            Whether it’s day or night, we’re just a call away.
+           Fast, Reliable , Anytime We Get You Back On Track!
           </p>
           
           <div className="inline-block px-5 py-3 text-lg font-bold text-white bg-red-700 rounded-lg shadow-lg">
