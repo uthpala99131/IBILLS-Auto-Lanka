@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../app/globals.css';
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -27,10 +27,10 @@ export default function RecoveryVehicleBookingPage() {
   };
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen text-white bg-black">
       <Navbar />
 
-      <div className="min-h-screen px-6 text-white bg-black py-25">
+      <main className="flex-grow px-6 pt-20">
         <h2 className="mb-8 text-3xl font-bold text-center text-red-600">Recovery Vehicle Booking</h2>
 
         <div className="grid max-w-5xl grid-cols-1 gap-10 mx-auto md:grid-cols-2">
@@ -80,7 +80,7 @@ export default function RecoveryVehicleBookingPage() {
 
             {/* Time Picker */}
             <div className="relative">
-              <label className="flex items-center text-sm font-medium text-white">
+              <label className="flex items-center mb-1 text-sm font-medium text-white">
                 <FaClock className="mr-2 text-white" /> Select Time
               </label>
               <TimePicker
@@ -109,11 +109,9 @@ export default function RecoveryVehicleBookingPage() {
             />
           </div>
         </div>
-      </div>
+      </main>
 
       <Footer />
-    </>
+    </div>
   );
 }
-
-
