@@ -22,7 +22,7 @@ export default function Recovery() {
 
           <p className="text-xl font-bold text-red-500">Available <span className="px-2 py-1 text-black bg-white rounded">24/7</span> for Your Emergency Needs</p>
 
-          <Link href="/parts">
+          <Link href="/recoverybooking">
             <button className="px-6 py-3 mt-4 text-lg font-semibold text-white transition-all duration-300 bg-red-600 shadow-md hover:bg-red-700 rounded-xl">
                  Book Recovery Now
             </button>
