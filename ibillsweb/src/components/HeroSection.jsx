@@ -72,9 +72,9 @@ export default function HeroSection() {
         transition={{ duration: 1, delay: 0.6 }}
       >
         <motion.img
-          src="/images/gear1.png"
+          src="/images/ibillslogo2.png"
           alt="Gear Icon"
-          className="h-auto w-28"
+          className="h-auto w-50"
           whileHover={{ scale: 1.2 }}
           whileTap={{ scale: 0.9 }}
         />
