@@ -5,7 +5,12 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export default function Contact() {
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [formData, setFormData] = useState({ 
+    name: "", 
+    email: "", 
+    phone: "",
+    message: "" 
+  });
   const [responseMsg, setResponseMsg] = useState("");
 
   const handleChange = (e) => {
@@ -23,15 +28,15 @@ export default function Contact() {
 
     const data = await res.json();
     setResponseMsg(data.message);
-    setFormData({ name: "", email: "", message: "" });
+    setFormData({ name: "", email: "", phone: "", message: "" });
   };
 
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
 
-      <main className="flex-grow py-30 px-4 sm:px-6 lg:px-8 max-w-2xl mx-auto w-full">
-        <h2 className="text-4xl font-bold text-center text-red-700 mb-10">Contact Us</h2>
+      <main className="flex-grow w-full max-w-2xl px-4 pt-20 mx-auto sm:px-6 lg:px-8">
+        <h2 className="mb-10 text-4xl font-bold text-center text-red-700">Contact Us</h2>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <input
@@ -52,6 +57,14 @@ export default function Contact() {
             className="w-full p-3 border rounded"
             required
           />
+          <input
+            type="tel"
+            name="phone"
+            placeholder="Your Phone Number"
+            value={formData.phone}
+            onChange={handleChange}
+            className="w-full p-3 border rounded"
+          />
           <textarea
             name="message"
             placeholder="Your Message"
@@ -62,11 +75,11 @@ export default function Contact() {
             required
           ></textarea>
 
-          <button type="submit" className="bg-red-600 text-white py-2 px-6 rounded hover:bg-red-700">
+          <button type="submit" className="px-6 py-2 text-white bg-red-600 rounded hover:bg-red-700">
             Send Message
           </button>
 
-          {responseMsg && <p className="text-green-600 mt-4">{responseMsg}</p>}
+          {responseMsg && <p className="mt-4 text-green-600">{responseMsg}</p>}
         </form>
       </main>
 
