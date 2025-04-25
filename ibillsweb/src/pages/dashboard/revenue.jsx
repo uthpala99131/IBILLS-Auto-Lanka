@@ -1,7 +1,7 @@
-import Sidebar from '@/components/dashboard/Layout/Sidebar';
-import Topbar from '@/components/dashboard/Layout/Topbar';
-import LineChart from '@/components/dashboard/Charts/LineChart';
-import BarChart from '@/components/dashboard/Charts/BarChart';
+import Sidebar from '../../components/dashboard/Layout/Sidebar';
+import Topbar from '../../components/dashboard/Layout/Topbar';
+import LineChart from '../../components/dashboard/Charts/LineChart';
+import BarChart from '../../components/dashboard/Charts/BarChart';
 import '../../app/globals.css';
 
 const RevenuePage = () => {
