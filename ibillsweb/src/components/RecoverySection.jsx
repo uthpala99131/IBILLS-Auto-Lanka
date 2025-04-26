@@ -32,7 +32,7 @@ export default function Recovery() {
         {/* Right Side */}
         <div className="flex justify-center">
           <img
-            src="/images/rec.jpg" // Replace with your actual image path or external URL
+            src="/images/rec2.jpg" // Replace with your actual image path or external URL
             alt="Recovery Vehicle"
             className="h-auto max-w-full shadow-2xl rounded-xl"
           />
