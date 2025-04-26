@@ -1,8 +1,10 @@
-module.exports = {
-  typescript: {
-    ignoreBuildErrors: true, // Allows the app to build even if there are TypeScript errors
+// next.config.mjs
+const nextConfig = {
+  reactStrictMode: true,
+  experimental: {
+    appDir: true,
   },
-  eslint: {
-    ignoreDuringBuilds: true, // Skips ESLint checks during production builds
-  },
+  // Other configurations...
 };
+
+export default nextConfig;
