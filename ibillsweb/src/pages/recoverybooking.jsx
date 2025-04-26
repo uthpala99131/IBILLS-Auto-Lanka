@@ -103,7 +103,7 @@ export default function RecoveryVehicleBookingPage() {
           {/* Image Section */}
           <div className="flex items-center justify-center">
             <img
-              src="/packages/rec.jpg"
+              src="/images/rec3.jpg"
               alt="Recovery Vehicle"
               className="object-cover w-full shadow-lg rounded-2xl"
             />
