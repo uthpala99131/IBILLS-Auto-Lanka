@@ -1,4 +1,13 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const userSchema = new Schema({
+  id: number,
+  name: string,
+});
+const User = mongoose.model("User", userSchema)
+
+
 
 const contactSchema = new mongoose.Schema({
   name: {

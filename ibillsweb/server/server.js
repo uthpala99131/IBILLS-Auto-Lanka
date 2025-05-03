@@ -13,6 +13,22 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const url = "mongodb+srv://uthpala99:uthpala99*#@project.tmauffo.mongodb.net/?retryWrites=true&w=majority&appName=Project"
+
+const connect = async() => {
+  try{
+      await mongoose.connect(url);
+      console.log("Connected to MongoDB");
+  }
+  catch(error){
+    console.log("MongoDB Error: ",error);
+
+  }
+
+}
+connect();
+
+
 app.use(cors({
   origin: ['http://localhost:3000'], // Your Next.js dev server
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
