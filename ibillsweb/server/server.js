@@ -2,40 +2,38 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-// Import routes
-const jobRoutes = require('./routes/jobRoutes');
-const contactRoutes = require('./routes/contact');
-const locationRoutes = require('./routes/locations');
-
 const app = express();
 
 // Middleware
-app.use(cors());
-app.use(express.json());
-
-const url = "mongodb+srv://uthpala99:uthpala99*#@project.tmauffo.mongodb.net/?retryWrites=true&w=majority&appName=Project"
-
-const connect = async() => {
-  try{
-      await mongoose.connect(url);
-      console.log("Connected to MongoDB");
-  }
-  catch(error){
-    console.log("MongoDB Error: ",error);
-
-  }
-
-}
-connect();
-
-
 app.use(cors({
-  origin: ['http://localhost:3000'], // Your Next.js dev server
+  origin: 'http://localhost:3000', // Can be a string if only one origin
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
+app.use(express.json());
 
-// Your routes
+// Database connection
+const url = "mongodb+srv://uthpala99:amkuiba99@ibills.7nahg3f.mongodb.net/";
+
+const connect = async () => {
+  try {
+    await mongoose.connect(url, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
+    console.log("Connected to MongoDB");
+  } catch (error) {
+    console.log("MongoDB Error: ", error);
+  }
+};
+connect();
+
+// Test route - verify this works first
+app.get('/api/test', (req, res) => {
+  res.json({ message: "Server is working!" });
+});
+
+// Simple locations route
 app.get('/api/locations', (req, res) => {
   res.json([{
     id: 1,
@@ -44,19 +42,12 @@ app.get('/api/locations', (req, res) => {
   }]);
 });
 
-app.listen(5000, () => console.log('Server running on port 5000'));
-// Database connection
-mongoose.connect('mongodb://localhost:27017/ibills', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(() => console.log('Connected to MongoDB'))
-.catch(err => console.error('MongoDB connection error:', err));
+// Add routes one by one to identify which one causes the error
+// Start with commenting all of these out, then uncomment one at a time
 
-// Routes
-app.use('/api/jobs', jobRoutes);
-app.use('/api/contact', contactRoutes);
-app.use('/api/locations', locationRoutes);
+// app.use('/api/jobs', require('./routes/jobRoutes'));
+// app.use('/api/contact', require('./routes/contact'));
+// app.use('/api/locations', require('./routes/locations'));
 
 // Error handling middleware
 app.use((err, req, res, next) => {
