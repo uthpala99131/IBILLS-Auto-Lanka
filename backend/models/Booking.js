@@ -1,42 +1,52 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
-const bookingSchema = new mongoose.Schema({
-  customerName: {
+const BookingSchema = new mongoose.Schema({
+  cus_name: {
     type: String,
-    required: true
+    required: [true, 'Customer name is required'],
+    trim: true,
+    maxlength: [50, 'Name cannot be more than 50 characters']
   },
-  contactNumber: {
+  vehicleName: {
     type: String,
-    required: true
-  },
-  vehicleType: {
-    type: String,
-    required: true
+    required: [true, 'Vehicle name is required'],
+    trim: true,
+    maxlength: [50, 'Vehicle name cannot be more than 50 characters']
   },
   serviceType: {
     type: String,
-    enum: ['recovery', 'service'],
-    required: true
-  },
-  date: {
-    type: Date,
-    required: true
-  },
-  time: {
-    type: String,
-    required: true
+    required: [true, 'Service type is required'],
+    default: 'Oil Change'
   },
   status: {
     type: String,
-    enum: ['pending', 'confirmed', 'completed', 'cancelled'],
-    default: 'pending'
+    enum: ['Pending', 'In Progress', 'Completed', 'Cancelled'],
+    default: 'Pending'
+  },
+  price: {
+    type: Number,
+    required: [true, 'Price is required'],
+    min: [0, 'Price cannot be negative']
   },
   createdAt: {
     type: Date,
     default: Date.now
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now
+  },
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
+    required: true
   }
 });
 
-const Booking = mongoose.model('Booking', bookingSchema);
+// Update the updatedAt field before saving
+BookingSchema.pre('save', function(next) {
+  this.updatedAt = Date.now();
+  next();
+});
 
-export default Booking;
+module.exports = mongoose.model('Booking', BookingSchema);
