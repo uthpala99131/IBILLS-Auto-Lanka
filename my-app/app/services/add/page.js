@@ -68,7 +68,8 @@ export default function AddBookingForm() {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:5000/api/bookings", {
+      // Save data to /api/bookings
+      const bookingRes = await fetch("http://localhost:5000/api/bookings", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -77,9 +78,38 @@ export default function AddBookingForm() {
         body: JSON.stringify(formData)
       });
 
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || "Failed to create booking.");
+      const bookingData = await bookingRes.json();
+      if (!bookingRes.ok) throw new Error(bookingData.message || "Failed to create booking.");
 
+      // Prepare job data from booking data
+      const jobData = {
+        cus_name: formData.cus_name,
+        vehicleName: formData.vehicleName,
+        serviceType: formData.serviceType,
+        status: "Pending", // Default status
+        price: formData.price,
+        sparePartName: "", // Optional, can be added later
+        sparePartPrice: 0, // Optional, can be added later
+        technicianName: "", // Optional, can be added later
+        technicianPhone: "", // Optional, can be added later
+        technicianSalary: 0, // Optional, can be added later
+        technicianReview: "" // Optional, can be added later
+      };
+
+      // Save data to /api/jobs
+      const jobRes = await fetch("http://localhost:5000/api/jobs", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: "include",
+        body: JSON.stringify(jobData)
+      });
+
+      const jobDataResponse = await jobRes.json();
+      if (!jobRes.ok) throw new Error(jobDataResponse.message || "Failed to create job.");
+
+      // Redirect to bookings page
       router.push("/bookings");
     } catch (err) {
       setError(err.message);

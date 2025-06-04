@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaWhatsapp, FaFacebookF, FaInstagram, FaYoutube, FaPaperPlane } from 'react-icons/fa';
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-
+import { MessagesTable } from '../components/dashboard/Tables/MessagesTable';
 export default function Contact() {
   const [formData, setFormData] = useState({ 
     name: "", 
@@ -40,22 +40,27 @@ export default function Contact() {
     e.preventDefault();
 
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch("/api/messages", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData)
       });
 
       const data = await res.json();
-      setResponseMsg(data.message);
-      setFormData({ name: "", email: "", phone: "", message: "" });
+      if (res.ok) {
+        setResponseMsg(data.message || "Message sent successfully!");
+        setFormData({ name: "", email: "", phone: "", message: "" });
+      } else {
+        setResponseMsg(data.error || "Failed to send message");
+      }
     } catch (error) {
+      console.error("Submission error:", error);
       setResponseMsg("Failed to send message. Please try again later.");
     }
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-black">
+    <div className="flex flex-col min-h-screen pt-10 bg-black">
       <Navbar />
 
       <main className="flex-grow">

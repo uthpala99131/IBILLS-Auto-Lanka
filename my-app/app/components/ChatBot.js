@@ -1,8 +1,7 @@
 import React, { useReducer, useEffect, useRef, useState } from "react";
 import ChatBubble from "./ChatBubble";
 import ChatInput from "./ChatInput";
-import ChatIcon from "./ChatIcon.js";
-import Image from "next/image";
+import ChatIcon from "./ChatIcon";
 
 const initialState = {
   messages: [],
@@ -38,15 +37,13 @@ const ChatBot = () => {
   };
 
   useEffect(() => {
-    if (isOpen) {
-      scrollToBottom();
-    }
-  }, [state.messages, isOpen]);
+    scrollToBottom();
+  }, [state.messages, isTyping]);
 
   useEffect(() => {
     if (isOpen && state.messages.length === 0) {
       setIsTyping(true);
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         setIsTyping(false);
         const welcomeMessage = {
           id: Date.now().toString(),
@@ -56,19 +53,17 @@ const ChatBot = () => {
         };
         dispatch({ type: "ADD_MESSAGE", payload: welcomeMessage });
       }, 1200);
-    }
-  }, [isOpen, state.messages.length]);
 
-  useEffect(() => {
-    if (chatContainerRef.current) {
-      chatContainerRef.current.classList.toggle("hidden", !isOpen);
+      return () => clearTimeout(timer);
     }
   }, [isOpen]);
 
   const handleSendMessage = async (content) => {
+    if (!content.trim()) return;
+
     const userMessage = {
       id: Date.now().toString(),
-      content: content,
+      content: content.trim(),
       role: "user",
       timestamp: new Date(),
     };
@@ -78,7 +73,7 @@ const ChatBot = () => {
     setIsTyping(true);
 
     try {
-      const response = await fetch("/api/chat", {
+      const response = await fetch("/api/chat/route.js", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -93,50 +88,59 @@ const ChatBot = () => {
       }
 
       const data = await response.json();
+      const typingDelay = 500 + Math.random() * 1000;
 
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         setIsTyping(false);
         const assistantMessage = {
           id: Date.now().toString(),
-          content: data.response,
+          content: data.response || data.message || "I didn't get that. Could you please repeat?",
           role: "assistant",
           timestamp: new Date(),
         };
         dispatch({ type: "ADD_MESSAGE", payload: assistantMessage });
-      }, 500 + Math.random() * 1000);
+      }, typingDelay);
+
+      return () => clearTimeout(timer);
     } catch (error) {
       console.error("Error sending message:", error);
-      setTimeout(() => {
-        setIsTyping(false);
-        const errorMessage = {
-          id: Date.now().toString(),
-          content: "Sorry, we're experiencing technical difficulties. Please try again later or call our service center directly.",
-          role: "assistant",
-          timestamp: new Date(),
-        };
-        dispatch({ type: "ADD_MESSAGE", payload: errorMessage });
-      }, 500);
+      setIsTyping(false);
+      const errorMessage = {
+        id: Date.now().toString(),
+        content: "Sorry, we're experiencing technical difficulties. Please try again later or call our service center directly.",
+        role: "assistant",
+        timestamp: new Date(),
+      };
+      dispatch({ type: "ADD_MESSAGE", payload: errorMessage });
     } finally {
       dispatch({ type: "SET_LOADING", payload: false });
     }
   };
 
   return (
-    <>
+    <div className="fixed bottom-4 right-4 z-50">
       <ChatIcon onClick={() => setIsOpen(!isOpen)} isOpen={isOpen} />
 
       <div
         ref={chatContainerRef}
         className={`fixed bottom-20 right-4 w-11/12 max-w-sm sm:max-w-md max-h-[80vh] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-gray-300 overflow-hidden transition-all duration-300 transform ${
-          isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 hidden"
+          isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
         }`}
       >
         {/* Chat Header */}
         <div className="relative z-20 flex items-center justify-between p-4 border-b border-gray-300 bg-gradient-to-r from-black to-red-800 text-white rounded-t-2xl">
           <div className="flex items-center">
             <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center mr-3 shadow-md">
-               <img src="/images/logo1.png" alt="Ibills Auto Lanka" className="w-8 h-8" />
-              </div>
+              <img 
+                src="/images/logo1.png" 
+                alt="Ibills Auto Lanka" 
+                className="w-8 h-8"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2032%2032%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20fill%3D%22%23ccc%22%20d%3D%22M16%200c8.837%200%2016%207.163%2016%2016s-7.163%2016-16%2016S0%2024.837%200%2016%207.163%200%2016%200zm0%202C8.268%202%202%208.268%202%2016s6.268%2014%2014%2014%2014-6.268%2014-14S23.732%202%2016%202z%22%2F%3E%3C%2Fsvg%3E";
+                }}
+              />
+            </div>
             <div>
               <h3 className="font-bold text-lg">IBILLS AUTO LANKA</h3>
               <p className="text-xs text-red-200">Vehicle Service Center Assistant</p>
@@ -192,7 +196,15 @@ const ChatBot = () => {
               <div className="flex justify-start mb-4">
                 <div className="flex items-start max-w-[85%]">
                   <div className="w-10 h-10 rounded-full flex items-center justify-center shadow-md mr-3 bg-gradient-to-r from-red-800 to-black">
-                    <img src="/images/logo1.png" alt="I" className="w-8 h-8 p-0.5" />
+                    <img 
+                      src="/images/logo1.png" 
+                      alt="Assistant" 
+                      className="w-8 h-8 p-0.5"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2032%2032%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20fill%3D%22%23ccc%22%20d%3D%22M16%200c8.837%200%2016%207.163%2016%2016s-7.163%2016-16%2016S0%2024.837%200%2016%207.163%200%2016%200zm0%202C8.268%202%202%208.268%202%2016s6.268%2014%2014%2014%2014-6.268%2014-14S23.732%202%2016%202z%22%2F%3E%3C%2Fsvg%3E";
+                      }}
+                    />
                   </div>
                   <div className="bg-white border border-gray-200 rounded-2xl rounded-bl-none px-4 py-2 shadow-lg">
                     <div className="flex space-x-1">
@@ -214,7 +226,7 @@ const ChatBot = () => {
           <ChatInput onSendMessage={handleSendMessage} isLoading={state.isLoading} />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

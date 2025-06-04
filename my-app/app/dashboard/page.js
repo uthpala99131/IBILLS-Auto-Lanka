@@ -7,10 +7,10 @@ import PieChart from '../components/dashboard/Charts/PieChart';
 
 const Dashboard = () => {
   const stats = [
-    { name: 'Total Bookings', value: '124', change: '+12%', changeType: 'positive' },
+    { name: 'Total Bookings', value: '24', change: '+12%', changeType: 'positive' },
     { name: 'Revenue (LKR)', value: '1,240,000', change: '+8.5%', changeType: 'positive' },
-    { name: 'Pending Services', value: '18', change: '-2%', changeType: 'negative' },
-    { name: 'New Customers', value: '32', change: '+5%', changeType: 'positive' },
+    { name: 'Pending Services', value: '1', change: '-2%', changeType: 'negative' },
+    { name: 'New Customers', value: '3', change: '+5%', changeType: 'positive' },
   ];
 
   return (

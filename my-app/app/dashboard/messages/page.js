@@ -1,3 +1,4 @@
+"use client";
 import Sidebar from '../../components/dashboard/Layout/Sidebar';
 import Topbar from '../../components/dashboard/Layout/Topbar';
 import MessagesTable from '../../components/dashboard/Tables/MessagesTable';

@@ -1,80 +1,73 @@
+"use client";
+import { useEffect, useState } from 'react';
+
 const MessagesTable = () => {
-    const messages = [
-      { 
-        id: 1, 
-        name: 'John Doe', 
-        email: 'john@example.com', 
-        phone: '0771234567', 
-        message: 'Need an oil change for my Toyota Corolla', 
-        date: '2023-06-15', 
-        status: 'New' 
-      },
-      { 
-        id: 2, 
-        name: 'Jane Smith', 
-        email: 'jane@example.com', 
-        phone: '0777654321', 
-        message: 'Brakes making noise on my Honda Civic', 
-        date: '2023-06-14', 
-        status: 'Replied' 
-      },
-      { 
-        id: 3, 
-        name: 'Robert Johnson', 
-        email: 'robert@example.com', 
-        phone: '0771122334', 
-        message: 'AC not cooling properly', 
-        date: '2023-06-13', 
-        status: 'Pending' 
-      },
-    ];
-  
-    return (
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white">
-          <thead className="text-white bg-black">
-            <tr>
-              <th className="px-4 py-3 text-left">ID</th>
-              <th className="px-4 py-3 text-left">Name</th>
-              <th className="px-4 py-3 text-left">Contact</th>
-              <th className="px-4 py-3 text-left">Message</th>
-              <th className="px-4 py-3 text-left">Date</th>
-              <th className="px-4 py-3 text-left">Status</th>
-              <th className="px-4 py-3 text-left">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="text-gray-700">
-            {messages.map((msg) => (
-              <tr key={msg.id} className="border-b border-gray-200 hover:bg-gray-50">
-                <td className="px-4 py-3">{msg.id}</td>
-                <td className="px-4 py-3 font-medium">{msg.name}</td>
-                <td className="px-4 py-3">
-                  <div className="flex flex-col">
-                    <span>{msg.email}</span>
-                    <span className="text-sm">{msg.phone}</span>
-                  </div>
-                </td>
-                <td className="max-w-xs px-4 py-3 truncate">{msg.message}</td>
-                <td className="px-4 py-3">{msg.date}</td>
-                <td className="px-4 py-3">
-                  <span className={`px-2 py-1 rounded-full text-xs ${
-                    msg.status === 'New' ? 'bg-red-100 text-red-800' :
-                    msg.status === 'Replied' ? 'bg-green-100 text-green-800' :
-                    'bg-yellow-100 text-yellow-800'
-                  }`}>
-                    {msg.status}
-                  </span>
-                </td>
-                <td className="px-4 py-3">
-                  <button className="mr-2 text-red-500 hover:text-red-700">Reply</button>
-                  <button className="text-black hover:text-gray-700">View</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
+  const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        const res = await fetch('/api/messages');
+        const data = await res.json();
+        if (res.ok) {
+          setMessages(data.data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch messages:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMessages();
+  }, []);
+
+  const handleStatusChange = async (id, newStatus) => {
+    try {
+      const res = await fetch(`/api/messages/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: newStatus })
+      });
+      
+      if (res.ok) {
+        setMessages(messages.map(msg => 
+          msg._id === id ? { ...msg, status: newStatus } : msg
+        ));
+      }
+    } catch (error) {
+      console.error('Failed to update status:', error);
+    }
   };
-  
-  export default MessagesTable;
+
+  if (loading) {
+    return <div className="flex justify-center p-8">Loading messages...</div>;
+  }
+
+  return (
+    <div className="overflow-x-auto">
+      <table className="min-w-full bg-white">
+        {/* ... rest of your table code ... */}
+        <td className="px-4 py-3">
+          <select 
+            value={msg.status}
+            onChange={(e) => handleStatusChange(msg._id, e.target.value)}
+            className={`px-2 py-1 rounded-full text-xs ${
+              msg.status === 'New' ? 'bg-red-100 text-red-800' :
+              msg.status === 'Replied' ? 'bg-green-100 text-green-800' :
+              'bg-yellow-100 text-yellow-800'
+            }`}
+          >
+            <option value="New">New</option>
+            <option value="Pending">Pending</option>
+            <option value="Replied">Replied</option>
+          </select>
+        </td>
+        {/* ... rest of your table code ... */}
+      </table>
+    </div>
+  );
+};
+
+export default MessagesTable;

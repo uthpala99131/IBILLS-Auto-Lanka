@@ -1,15 +1,9 @@
 const BookingsTable = () => {
-    const bookings = [
-      { id: 1, customer: 'Kamal', vehicle: 'Toyota Corolla', service: 'Oil Change', date: '2023-06-15', status: 'Confirmed' },
-      { id: 2, customer: 'Nimal', vehicle: 'Honda Civic', service: 'Brake Inspection', date: '2023-06-16', status: 'Pending' },
-      { id: 3, customer: 'Kasun', vehicle: 'Nissan Sunny', service: 'Tire Rotation', date: '2023-06-17', status: 'Completed' },
-      { id: 4, customer: 'Lakmal', vehicle: 'Mitsubishi Lancer', service: 'Engine Tune-up', date: '2023-06-18', status: 'Confirmed' },
-      { id: 5, customer: 'Herath', vehicle: 'Suzuki Swift', service: 'AC Service', date: '2023-06-19', status: 'Pending' },
-    ];
+
   
     return (
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white">
+      <div className="overflow-x-auto ">
+        <table className="min-w-full  bg-white">
           <thead className="text-white bg-black">
             <tr>
               <th className="px-4 py-3 text-left">ID</th>
@@ -17,7 +11,7 @@ const BookingsTable = () => {
               <th className="px-4 py-3 text-left">Vehicle</th>
               <th className="px-4 py-3 text-left">Service</th>
               <th className="px-4 py-3 text-left">Date</th>
-              <th className="px-4 py-3 text-left">Status</th>
+             
               <th className="px-4 py-3 text-left">Actions</th>
             </tr>
           </thead>

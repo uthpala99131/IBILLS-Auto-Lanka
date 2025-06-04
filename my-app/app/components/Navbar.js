@@ -11,7 +11,7 @@ const navLinks = [
   { title: "ABOUT", path: "/about" },
   { title: "SERVICES", path: "/services" },
   { title: "CONTACT", path: "/contact" },
-  { title: "Test", path: "/createjobcard" },
+  { title: "AI", path: "/diagnostics" },
 ];
 
 const Navbar = () => {

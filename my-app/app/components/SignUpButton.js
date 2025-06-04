@@ -169,16 +169,12 @@ const UserAccountButton = () => {
                   <span>My Bookings</span>
                 </button>
               </Link>
-              <Link href="/jobcard" passHref>
-                <button className="flex items-center gap-2 px-4 py-2 text-red-800 w-full text-left hover:bg-red-50">
-                  <Map size={16} />
-                  <span>Job Card</span>
-                </button>
-              </Link>
 
               <button className="flex items-center gap-2 px-4 py-2 text-red-600 w-full text-left hover:bg-red-50">
                 <Settings size={16} />
-                <span>Settings</span>
+                <Link href={`/jobcard`}>
+                <span>Job Card</span>
+                </Link>
               </button>
 
               <div className="border-t border-gray-100 my-1" />

@@ -13,10 +13,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
+  "type": "commonjs",
   "dependencies": {
     "@google/genai": "^1.0.1",
-    "@react-pdf/renderer": "^4.3.0",
+    "@google/generative-ai": "^0.24.1",
     "axios": "^1.9.0",
     "backend": "file:",
     "bcryptjs": "^3.0.2",
@@ -26,24 +26,16 @@
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "express-async-handler": "^1.2.0",
-    "framer-motion": "^12.14.0",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
-    "jspdf": "^3.0.1",
-    "jspdf-autotable": "^5.0.2",
     "mongoose": "^8.15.1",
     "morgan": "^1.10.0",
-    "next-auth": "^4.24.11",
-    "pdfkit": "^0.17.1",
-    "react-hot-toast": "^2.5.2",
-    "react-icons": "^5.5.0",
-    "react-to-print": "^3.1.0",
-    "recharts": "^2.15.3",
+    "react-markdown": "^10.1.0",
     "uuid": "^11.1.0"
   },
   "devDependencies": {
-    "@types/node": "^22.15.23",
-    "@types/react": "^19.1.6",
-    "nodemon": "^3.1.10"
+    "eslint-plugin-tailwindcss": "^3.18.0",
+    "nodemon": "^3.1.10",
+    "prettier": "^3.5.3"
   }
 }

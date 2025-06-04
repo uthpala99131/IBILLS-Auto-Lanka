@@ -1,29 +1,81 @@
-
+"use client";
+import React, { useEffect, useState } from 'react';
 import Sidebar from '../../components/dashboard/Layout/Sidebar';
 import Topbar from '../../components/dashboard/Layout/Topbar';
-import BookingsTable  from '../../components/dashboard/Tables/BookingTables';
-import React from 'react';
 
-const BookingsPage = () => {
+
+
+const BookingsTable = () => {
+  const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchBookings = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/bookings", {
+          method: "GET",
+          credentials: "include", // Required for cookie-based sessions
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || "Failed to fetch bookings.");
+
+        setBookings(data.data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBookings();
+  }, []);
+
+  if (loading) return <p className="text-gray-700">Loading bookings...</p>;
+  if (error) return <p className="text-red-500">Error: {error}</p>;
+
   return (
-    <div className="flex">
+    <div className="overflow-x-auto">
+      <div className="flex">
       <Sidebar />
-      <div className="flex-1 ml-64">
-        <Topbar />
-        <main className="min-h-screen p-6 bg-gray-50">
-          <div className="flex items-center justify-between mb-6">
-            <h1 className="text-2xl font-bold text-black">Bookings Management</h1>
-            <button className="px-4 py-2 text-white transition-colors bg-red-500 rounded-lg hover:bg-red-600">
-              + Add New Booking
-            </button>
-          </div>
-          <div className="p-6 bg-white rounded-lg shadow">
-            <BookingsTable />
-          </div>
-        </main>
+      <div className="flex-1 pt-20 sm:pt-25 ml-64">
+       
+
+      <table className="min-w-full text-sm text-left text-gray-700">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-200">
+          <tr>
+            <th className="px-6 py-3">Customer Name</th>
+            <th className="px-6 py-3">User Name</th>
+            <th className="px-6 py-3">User Email</th>
+            <th className="px-6 py-3">Vehicle</th>
+            <th className="px-6 py-3">Service</th>
+         
+            <th className="px-6 py-3">Price</th>
+            <th className="px-6 py-3">Created At</th>
+            <th className="px-6 py-3">Updated At</th>
+          </tr>
+        </thead>
+        <tbody>
+          {bookings.map((booking) => (
+            <tr key={booking._id} className="bg-white border-b">
+              <td className="px-6 py-4">{booking.cus_name}</td>
+              <td className="px-6 py-4">{booking.user?.name || 'N/A'}</td>
+              <td className="px-6 py-4">{booking.user?.email || 'N/A'}</td>
+              <td className="px-6 py-4">{booking.vehicleName}</td>
+              <td className="px-6 py-4">{booking.serviceType}</td>
+            
+              <td className="px-6 py-4">Rs. {booking.price.toFixed(2)}</td>
+              <td className="px-6 py-4">{new Date(booking.createdAt).toLocaleString()}</td>
+              <td className="px-6 py-4">{new Date(booking.updatedAt).toLocaleString()}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      </div>
       </div>
     </div>
   );
 };
 
-export default BookingsPage;
+export default BookingsTable;
